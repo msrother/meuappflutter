@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:meuapp/controller/course_controller.dart';
 import 'package:meuapp/model/course_model.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:meuapp/utils.dart';
+import 'dart:math';
+
+//gera uma cor aleatória para cada CircleAvatar
+Color generateRandomColor() {
+  Random random = Random();
+  return Color.fromRGBO(
+      random.nextInt(256), random.nextInt(256), random.nextInt(256), 1);
+}
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -128,8 +137,13 @@ class _HomePageState extends State<HomePage> {
                       ]),
                       child: ListTile(
                         title: Text(snapshot.data![index].name ?? ''),
-                        leading: const CircleAvatar(
-                          child: Text("CS"),
+                        leading: CircleAvatar(
+                          child: CircleAvatar(
+                            backgroundColor: generateRandomColor(),
+                            child: Text(
+                              getFirstLetter(snapshot.data![index].name),
+                            ),
+                          ),
                         ),
                         trailing: const Icon(Icons.arrow_forward_ios),
                         subtitle: Text(snapshot.data![index].description ?? ''),
