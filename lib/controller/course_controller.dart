@@ -1,5 +1,5 @@
 import 'package:meuapp/model/course_model.dart';
-import 'package:meuapp/model/course_repository.dart';
+import 'package:meuapp/repository/course_repository.dart';
 
 class CourseController {
   CourseRepository repository = CourseRepository();
