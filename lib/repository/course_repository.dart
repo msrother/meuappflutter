@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:meuapp/core/constantes.dart';
 import 'package:meuapp/model/course_model.dart';
 import 'package:http/http.dart' as http;
@@ -7,11 +6,13 @@ import 'package:http/http.dart' as http;
 class CourseRepository {
   final Uri url = Uri.parse('$urlBaseApi/courses');
 
+  //busca a lista de todos cursos na api
   Future<List<CourseEntity>> getAll() async {
     List<CourseEntity> coursesList = [];
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
+      //converte de json para uma lista
       final json = jsonDecode(response.body) as List;
       for (var course in json) {
         coursesList.add(CourseEntity.fromJson(course));

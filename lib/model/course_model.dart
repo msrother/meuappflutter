@@ -6,6 +6,7 @@ class CourseEntity {
 
   CourseEntity({this.id, this.name, this.description, this.start_at});
 
+  //converte um map (JSON decode) em um objeto de course (instanciado)
   static CourseEntity fromJson(Map<String, dynamic> map) {
     return CourseEntity(
         id: map['id'],
