@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meuapp/core/themes.dart';
+import 'package:meuapp/view/home_page.dart';
 import 'package:meuapp/view/login_page.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Meu AppFlutter',
       themeMode: ThemeMode.system,
       theme: ThemeClass.lightTheme,
       darkTheme: ThemeClass.darkTheme,

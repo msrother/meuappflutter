@@ -5,6 +5,7 @@ import 'package:meuapp/view/holiday_page.dart';
 import 'package:meuapp/view/home_page.dart';
 import 'package:meuapp/view/login_page.dart';
 import 'package:meuapp/controller/course_controller.dart';
+import 'package:meuapp/view/teacher_page.dart';
 
 class NavDrawer extends StatefulWidget {
   const NavDrawer({super.key});
@@ -59,17 +60,19 @@ class _NavDrawerState extends State<NavDrawer> {
                 ),
               );
             },
-            //se não der certo este onTap abaixo, retornar ao código acima
-            // onTap: () async {
-            //   setState(() {
-            //     coursesFuture = controller.getCourseList();
-            //   });
-            // },
           ),
           ListTile(
             leading: const Icon(Icons.school_outlined),
             title: const Text('Professores'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TeacherPage(),
+                ),
+              );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.calendar_month_outlined),

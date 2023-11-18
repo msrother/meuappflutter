@@ -15,6 +15,7 @@ class CourseEntity {
         start_at: map['start_at']);
   }
 
+  //converte um objeto CourseEntity em um MAP para passar para JSON
   static Map<String, dynamic> toJson(CourseEntity courseEntity) {
     Map<String, dynamic> json = {
       'name': courseEntity.name,

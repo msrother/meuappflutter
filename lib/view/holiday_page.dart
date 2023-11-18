@@ -34,7 +34,7 @@ class _HolidayPageState extends State<HolidayPage> {
                   children: [
                     Expanded(
                       flex:
-                          1, // Alteração: Defina a quantidade de flex para distribuir o espaço entre as colunas
+                          1, //Quantidade de flex para distribuir o espaço entre as colunas
                       child: Container(
                         width: MediaQuery.of(context).size.width *
                             0.9 *
