@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meuapp/model/holiday_model.dart';
-import 'package:meuapp/repository/holiday_repository.dart';
+import 'package:meuapp/model/holiday_repository.dart';
 
 class HolidayController {
   final HolidayRepository _repository = HolidayRepository();
