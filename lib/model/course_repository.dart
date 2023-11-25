@@ -36,4 +36,13 @@ class CourseRepository {
       throw 'Problemas ao inserir curso';
     }
   }
+
+  putUpdateCourse(CourseEntity courseEntity) async {
+    final url = '$urlBaseApi/courses/${courseEntity.id}';
+    final jsonCourse = jsonEncode(CourseEntity.toJson(courseEntity));
+    var response = await http.put(Uri.parse(url), body: jsonCourse);
+    if (response.statusCode != 200) {
+      throw 'Problemas ao atualizar curso';
+    }
+  }
 }

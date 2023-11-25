@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:meuapp/controller/course_controller.dart';
 import 'package:meuapp/model/course_model.dart';
 
 class FormNewCoursePage extends StatefulWidget {
-  const FormNewCoursePage({super.key});
+  FormNewCoursePage({super.key, this.courseEdit});
+
+  CourseEntity? courseEdit;
 
   @override
   State<FormNewCoursePage> createState() => _FormNewCoursePageState();
@@ -14,9 +15,43 @@ class _FormNewCoursePageState extends State<FormNewCoursePage> {
   CourseController controller = CourseController();
   final _formKey = GlobalKey<FormState>();
 
+  String id = '';
   TextEditingController textNameController = TextEditingController();
   TextEditingController textDescriptionController = TextEditingController();
   TextEditingController textStartAtController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.courseEdit != null) {
+      textNameController.text = widget.courseEdit?.name ?? '';
+      textDescriptionController.text = widget.courseEdit?.description ?? '';
+      textStartAtController.text =
+          controller.dateTimeToDateBR(widget.courseEdit!.start_at) ?? '';
+      id = widget.courseEdit?.id ?? '';
+    }
+  }
+
+  putUpdateCourse() async {
+    try {
+      await controller.postNewCourse(
+        CourseEntity(
+          id: id,
+          name: textNameController.text,
+          description: textDescriptionController.text,
+          start_at: controller.dateBRToDateApi(textStartAtController.text),
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Dados salvos!')),
+      );
+      Navigator.pop(context);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('$e')),
+      );
+    }
+  }
 
   postNewCourse() async {
     try {
@@ -24,7 +59,7 @@ class _FormNewCoursePageState extends State<FormNewCoursePage> {
         CourseEntity(
           name: textNameController.text,
           description: textDescriptionController.text,
-          start_at: textStartAtController.text,
+          start_at: controller.dateBRToDateApi(textStartAtController.text),
         ),
       );
       ScaffoldMessenger.of(context).showSnackBar(
@@ -124,8 +159,9 @@ class _FormNewCoursePageState extends State<FormNewCoursePage> {
                           if (value != null) {
                             setState(
                               () {
-                                textStartAtController.text =
-                                    DateFormat('dd/MM/yyyy').format(value);
+                                textStartAtController.text = controller
+                                    .dateTimeToDateBR(value.toString());
+                                //  DateFormat('dd/MM/yyyy').format(value);
                               },
                             );
                           }
@@ -161,7 +197,11 @@ class _FormNewCoursePageState extends State<FormNewCoursePage> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         //aqui enviar para api os dados
-                        postNewCourse();
+                        if (widget.courseEdit != null) {
+                          putUpdateCourse();
+                        } else {
+                          postNewCourse();
+                        }
                       }
                     },
                     child: const Text(
